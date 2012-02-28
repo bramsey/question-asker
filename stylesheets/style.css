@@ -10,12 +10,15 @@
 	margin-top: 1.5em;
 }
 
-textarea {
+textarea, input[type=text] {
 	width: 100%;
+}
+
+textarea {
 	height: 200px;	
 }
 
-textarea, .btn {
+textarea, input {
 	font-size: 16px;
 	margin-top: .75em;
 	padding: .5em;
@@ -34,3 +37,8 @@ h1, h2 { margin-bottom: .5em; font-weight: 500; }
 footer { margin-top: 1.5em; }
 
 quiet { font-size: .75em; color: #777;}
+
+
+#answer, #question { 
+	display: none; 
+}
