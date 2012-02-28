@@ -17,8 +17,8 @@ $('#question_action').live 'click', (event) ->
 
 
 $('.answer').live 'click', (event) ->
-	switch this.value
-		when 'Yes' then $('#yes_area').append(list[item_index] + '\n')
+	switch this.id
+		when 'yes_action' then $('#yes_area').append(list[item_index] + '\n')
 		else $('#no_area').append(list[item_index] + '\n')
 	
 	if (item_index >= list.length - 1) # done
@@ -27,4 +27,14 @@ $('.answer').live 'click', (event) ->
 	else
 		item_index += 1
 		$('#item').html(list[item_index])
+
+$(document).live 'keyup', (event) ->
+	if($('#answer').css('display') != 'none')
+		switch event.keyCode
+			when 89 then $('#yes_action').trigger('click')
+			when 78 then $('#no_action').trigger('click')
+			
+$('#question_input').live 'keydown', (event) ->
+	if event.keyCode is 13
+		$('#question_action').trigger('click')
 		

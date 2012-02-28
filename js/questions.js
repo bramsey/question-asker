@@ -22,8 +22,8 @@
   });
 
   $('.answer').live('click', function(event) {
-    switch (this.value) {
-      case 'Yes':
+    switch (this.id) {
+      case 'yes_action':
         $('#yes_area').append(list[item_index] + '\n');
         break;
       default:
@@ -36,6 +36,21 @@
       item_index += 1;
       return $('#item').html(list[item_index]);
     }
+  });
+
+  $(document).live('keyup', function(event) {
+    if ($('#answer').css('display') !== 'none') {
+      switch (event.keyCode) {
+        case 89:
+          return $('#yes_action').trigger('click');
+        case 78:
+          return $('#no_action').trigger('click');
+      }
+    }
+  });
+
+  $('#question_input').live('keydown', function(event) {
+    if (event.keyCode === 13) return $('#question_action').trigger('click');
   });
 
 }).call(this);
