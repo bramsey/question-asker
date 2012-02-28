@@ -29,6 +29,21 @@ textarea, input {
 }
 
 .btn {
+	-moz-box-shadow:  0 0 4px 4px #ccc;
+	-webkit-box-shadow:  0 4px 4px #ccc;
+	box-shadow:  1px 1px 1px #777;
+}
+
+.btn:active {
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	margin-top: 13px;
+	margin-left: 1px;
+	margin-bottom: -1px;
+}
+
+.btn {
 	background: #ebebeb;
 }
 
@@ -39,6 +54,6 @@ footer { margin-top: 1.5em; }
 quiet { font-size: .75em; color: #777;}
 
 
-#answer, #question { 
+#answer, #question, #results { 
 	display: none; 
 }
