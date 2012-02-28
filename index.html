@@ -16,22 +16,21 @@
 			<h1>Question Asker</h1>
 			<div id="list">
 				<h2>Enter a list of stuff to answer a question about below.</h2>
-				<textarea id="list" autofocus></textarea>
-				<input type="button" class="btn" value="Done. Now what?">
+				<textarea id="list_area" autofocus></textarea>
+				<input id="list_action" type="button" class="btn" value="Done. Now what?">
 			</div>
 			<div id="question">
 				<h2>What is the question?</h2>
-				<input type="text" />
-				<input type="button" class="btn" value="Cool, let's answer it!" />
+				<input id="question_input" type="text" autofocus />
+				<input id="question_action" type="button" class="btn" value="Cool, let's answer it!" />
 			</div>
 			<div id="answer">
 				<h2 class="question">Have I seen this?</h2>
 				<h1 id="item">Star Wars</h1>
-				<input type="button" class="btn" value="Yes" />
-				<input type="button" class="btn" value="No" />
+				<input id="yes_action" type="button" class="btn answer" value="Yes" />
+				<input id="no_action" type="button" class="btn answer" value="No" />
 			</div>
 			<div id="results">
-				<h2>Here are the results for the question:</h2>
 				<h2 class="question">Have I seen this?</h2>
 				<div id="yes">
 					<h3>Yes</h3>
