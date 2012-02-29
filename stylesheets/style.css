@@ -54,6 +54,6 @@ footer { margin-top: 1.5em; }
 quiet { font-size: .75em; color: #777;}
 
 
-#answer, #question, #results { 
+#answer, #question, #results, #undo { 
 	display: none; 
 }
