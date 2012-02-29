@@ -24,25 +24,14 @@ $('#question_action').live 'click', (event) ->
 	$('#question').hide()
 	$('#answer').fadeIn('fast')
 
-
-
 $('.answer').live 'click', (event) ->
-	# store votes based on action clicked
-	if this.id is 'yes_action'
-		list_votes[item_index] = 'yes'
-	else if this.id is 'no_action'
-		list_votes[item_index] = 'no'
-	else
-		# resets to the previous item for re-answering
-		$('#undo').hide() if item_index == 1
-		item_index -= 2
+	check_action(this)
 	
 	# show undo button if not on the first item
 	$('#undo').fadeIn('fast') if item_index >= 0
 	
-	# tally and display the results when done
+	# display the results when done
 	if (item_index >= list.length - 1) # done
-		tally_results()
 		$('#answer').hide()
 		$('#results').fadeIn('fast')
 	else
@@ -55,15 +44,30 @@ $('.answer').live 'click', (event) ->
 		# show the next item
 		$('#item').html(list[item_index])
 
-# add each item to the appropriate list based on it's vote
-tally_results = () ->
-	i = 0
-	while i < list.length
-		if list_votes[i] is 'yes'
-			$('#yes_area').append(list[i] + '\n')
+# store votes based on action clicked and add to right text area
+check_action = (action) ->
+	if action.id is 'yes_action'
+		list_votes[item_index] = 'yes'
+		$('#yes_area').append(list[item_index] + '\n')
+	else if action.id is 'no_action'
+		list_votes[item_index] = 'no'
+		$('#no_area').append(list[item_index] + '\n')
+	else
+		# resets to the previous item for re-answering
+		$('#undo').hide() if item_index == 1
+		item_index -= 1
+		if list_votes[item_index] is 'yes'
+			remove_last_item('#yes_area')
 		else
-			$('#no_area').append(list[i] + '\n')
-		i += 1
+			remove_last_item('#no_area')
+		item_index -= 1
+
+# removes the last item from the specified text area
+remove_last_item = (area) ->
+	val = $(area).attr('value').split('\n')
+	val.splice(val.length-1, 1)
+	$(area).html(val.join())
+
 	
 # shortcut listener
 $(document).live 'keyup', (event) ->

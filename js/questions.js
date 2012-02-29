@@ -1,5 +1,5 @@
 (function() {
-  var NO_KEY, UNDO_KEY, YES_KEY, item_index, list, list_votes, question, tally_results;
+  var NO_KEY, UNDO_KEY, YES_KEY, check_action, item_index, list, list_votes, question, remove_last_item;
 
   list = [];
 
@@ -30,17 +30,9 @@
   });
 
   $('.answer').live('click', function(event) {
-    if (this.id === 'yes_action') {
-      list_votes[item_index] = 'yes';
-    } else if (this.id === 'no_action') {
-      list_votes[item_index] = 'no';
-    } else {
-      if (item_index === 1) $('#undo').hide();
-      item_index -= 2;
-    }
+    check_action(this);
     if (item_index >= 0) $('#undo').fadeIn('fast');
     if (item_index >= list.length - 1) {
-      tally_results();
       $('#answer').hide();
       return $('#results').fadeIn('fast');
     } else {
@@ -52,19 +44,30 @@
     }
   });
 
-  tally_results = function() {
-    var i, _results;
-    i = 0;
-    _results = [];
-    while (i < list.length) {
-      if (list_votes[i] === 'yes') {
-        $('#yes_area').append(list[i] + '\n');
+  check_action = function(action) {
+    if (action.id === 'yes_action') {
+      list_votes[item_index] = 'yes';
+      return $('#yes_area').append(list[item_index] + '\n');
+    } else if (action.id === 'no_action') {
+      list_votes[item_index] = 'no';
+      return $('#no_area').append(list[item_index] + '\n');
+    } else {
+      if (item_index === 1) $('#undo').hide();
+      item_index -= 1;
+      if (list_votes[item_index] === 'yes') {
+        remove_last_item('#yes_area');
       } else {
-        $('#no_area').append(list[i] + '\n');
+        remove_last_item('#no_area');
       }
-      _results.push(i += 1);
+      return item_index -= 1;
     }
-    return _results;
+  };
+
+  remove_last_item = function(area) {
+    var val;
+    val = $(area).attr('value').split('\n');
+    val.splice(val.length - 1, 1);
+    return $(area).html(val.join());
   };
 
   $(document).live('keyup', function(event) {
